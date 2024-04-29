@@ -8,58 +8,63 @@ datasource db {
 }
 
 model Users {
-  id                 String      @id @default(uuid())
-  email              String      @unique
-  password           String
-  createdAt          DateTime    @default(now()) @map("created_at")
-  updatedAt          DateTime    @default(now()) @updatedAt @map("updated_at")
-  grupoEmpresarialId String      @map("grupo_empresarial_id")
-  ativo              Boolean     @default(true)
-  colaboradorId      String      @unique @map("colaborador_id")
-  sessions           Session[]
-  Colaborador        Colaborador @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+  id            String @id @default(uuid())
+  email         String @unique
+  password      String
+  colaboradorId String @unique @map("colaborador_id")
+
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  Colaborador Colaborador @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+  sessions    Session[]
 
   @@map("users")
 }
 
 model Session {
-  id           String   @id @default(uuid())
-  refreshToken String   @db.VarChar(500)
-  userId       String   @map("user_id")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
-  ativo        Boolean  @default(true)
-  user         Users    @relation(fields: [userId], references: [id])
+  id           String @id @default(uuid())
+  refreshToken String @db.VarChar(500)
+  userId       String @map("user_id")
+
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user Users @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "sessions_user_id_fkey")
   @@map("sessions")
 }
 
 model Colaborador {
-  id                        String                     @id @default(uuid())
-  nome                      String                     @map("nome")
-  cpf                       String                     @unique @map("cpf")
-  dataDeNascimento          String                     @default("") @map("data_nascimento")
-  sexo                      String                     @default("") @db.Char(1)
-  ativo                     Boolean                    @default(true)
-  uf                        String                     @default("")
-  telefone                  String                     @default("")
-  telefone2                 String                     @default("")
-  celular                   String                     @default("")
-  celular2                  String                     @default("")
-  email                     String                     @default("")
-  email2                    String                     @default("")
-  createdAt                 DateTime                   @default(now()) @map("created_at")
-  updatedAt                 DateTime                   @default(now()) @updatedAt @map("updated_at")
-  mensagem                  String                     @default("")
-  grupoEmpresarialId        String                     @map("grupo_empresarial_id")
-  enderecoId                String                     @unique
-  corNaAgenda               String                     @default("") @map("cor_na_agenda")
+  id               String  @id @default(uuid())
+  nome             String  @map("nome")
+  cpf              String  @unique @map("cpf")
+  dataDeNascimento String  @default("") @map("data_nascimento")
+  telefone         String  @default("") @map("telefone")
+  celular          String  @default("") @map("celular")
+  email            String  @default("") @map("email")
+  cargo            String  @map("cargo")
+  curso            String? @map("curso")
 
-  User                      Users?
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  User Users?
 
   @@index([cpf, nome, ativo])
-  @@index([grupoEmpresarialId], map: "colaborador_grupo_empresarial_id_fkey")
   @@map("colaborador")
 }
 
+model Local {
+  id   String @id @default(uuid())
+  tipo String @map("tipo")
+  numero Int @map("numero") 
+  bloco String @map("bloco")
+
+  
+  @@map("local")
+}
