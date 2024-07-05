@@ -42,7 +42,6 @@ class LoginUseCase {
 
           await prisma.$disconnect()
           return ({
-            geId: user.grupoEmpresarialId,
             accessToken,
             refreshToken
           });

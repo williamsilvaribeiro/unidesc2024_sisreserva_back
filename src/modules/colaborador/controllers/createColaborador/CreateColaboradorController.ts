@@ -7,21 +7,12 @@ class CreateColaboradorController {
     const {
       nome,
       cpf,
-      grupoEmpresarialId,
       dataDeNascimento,
-      sexo,
-      endereco,
       telefone,
-      telefone2,
       celular,
-      celular2,
       email,
-      email2,
-      medicina,
-      empresas,
-      mensagem,
-
-      corNaAgenda
+      cargo,
+      curso,
     } = request.body;
 
     const createColaboradorUseCase = new CreateColaboradorUseCase();
@@ -29,20 +20,12 @@ class CreateColaboradorController {
     const createColaborador = await createColaboradorUseCase.execute({
       nome,
       cpf,
-      grupoEmpresarialId,
       dataDeNascimento,
-      sexo,
-      endereco,
       telefone,
-      telefone2,
       celular,
-      celular2,
       email,
-      email2,
-      medicina,
-      empresas,
-      mensagem,
-      corNaAgenda,
+      cargo,
+      curso,
     });
 
     if (createColaborador === 422) {
@@ -50,6 +33,13 @@ class CreateColaboradorController {
         .send({ message: "Failed in Create Colaborador." })
         .end();
     };
+
+    if(createColaborador instanceof Error){
+      return response
+        .status(409)
+        .send({ message:  createColaborador.message})
+        .end();
+    }
 
     return response.status(201).json(createColaborador);
   }

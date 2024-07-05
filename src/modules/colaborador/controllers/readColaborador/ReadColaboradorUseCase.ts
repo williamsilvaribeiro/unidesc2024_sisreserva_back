@@ -12,12 +12,6 @@ class ReadColaboradorUseCase {
     try {
       const colaboradores = await prisma.colaborador.findMany({
         where: { ativo: true },
-        include: {
-          ColaboradorMedicina: true,
-          colaboradorConselho: true,
-          colaboradorEspecialidades: true,
-          colaboradorEmpresas: true,
-        },
       });
 
       return colaboradores;

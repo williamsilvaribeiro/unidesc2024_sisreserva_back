@@ -24,7 +24,7 @@ class LoginController {
     const loginUseCase = new LoginUseCase();
 
     const login = await loginUseCase.execute({
-      email, password
+      email: email, password: password
     });
 
     if (login === 404) {

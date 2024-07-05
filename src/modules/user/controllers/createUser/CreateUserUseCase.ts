@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 interface IRequest {
   email: string;
   password: string;
-  grupoEmpresarialId: string;
   colaboradorId: string;
 }
 
@@ -15,7 +14,6 @@ class CreateUserUseCase {
   async execute({
     email,
     password,
-    grupoEmpresarialId,
     colaboradorId,
   }: IRequest) {
     try {
@@ -26,8 +24,7 @@ class CreateUserUseCase {
         data: {
           email,
           password: hashPass,
-          grupoEmpresarialId,
-          colaboradorId,
+          colaboradorId
         },
       });
 

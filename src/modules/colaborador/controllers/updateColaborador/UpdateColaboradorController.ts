@@ -7,24 +7,15 @@ class UpdateColaboradorController {
     const {
       nome,
       cpf,
-      grupoEmpresarialId,
       dataDeNascimento,
-      sexo,
-      endereco,
       telefone,
-      telefone2,
       celular,
-      celular2,
       email,
-      email2,
-      medicina,
-      corNaAgenda,
-      empresas,
-      mensagem,
-      tipoColaborador
+      cargo,
+      curso,
     } = request.body;
 
-    const { id } = request.params
+    const { id } = request.params;
 
     const updateColaboradorUseCase = new UpdateColaboradorUseCase();
 
@@ -32,28 +23,27 @@ class UpdateColaboradorController {
       id,
       nome,
       cpf,
-      grupoEmpresarialId,
       dataDeNascimento,
-      sexo,
-      endereco,
       telefone,
-      telefone2,
       celular,
-      celular2,
       email,
-      email2,
-      medicina,
-      corNaAgenda,
-      empresas,
-      mensagem,
-      tipoColaborador
+      cargo,
+      curso,
     });
 
     if (updateColaborador === 422) {
-      return response.status(422)
+      return response
+        .status(422)
         .send({ message: "Failed in Update Colaborador." })
         .end();
-    };
+    }
+
+    if (updateColaborador instanceof Error) {
+      return response
+        .status(409)
+        .send({ message: updateColaborador.message })
+        .end();
+    }
 
     return response.status(202).json(updateColaborador);
   }

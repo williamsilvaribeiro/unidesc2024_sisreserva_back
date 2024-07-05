@@ -8,7 +8,6 @@ import { ReadColaboradorController } from "../controllers/readColaborador/ReadCo
 import { DeleteColaboradorController } from "../controllers/deleteColaborador/DeleteColaboradorController";
 import { UpdateColaboradorController } from "../controllers/updateColaborador/UpdateColaboradorController";
 import { ReadByIdColaboradorController } from "../controllers/readByIdColaborador/ReadByIdColaboradorController";
-import { ReadEspecialidadesByColaboradorController } from "../controllers/readEspecialidadesByColaborador/ReadEspecialidadesByColaboradorController";
 
 const colaboradorRoutes = Router();
 
@@ -17,7 +16,6 @@ const readColaboradorController = new ReadColaboradorController();
 const deleteColaboradorController = new DeleteColaboradorController();
 const updateColaboradorController = new UpdateColaboradorController();
 const readByIdColaboradorController = new ReadByIdColaboradorController();
-const readEspecialidadesByColaboradorController = new ReadEspecialidadesByColaboradorController();
 
 colaboradorRoutes.post(
   "/",
@@ -54,12 +52,6 @@ colaboradorRoutes.get(
   readByIdColaboradorController.handle,
 );
 
-colaboradorRoutes.get(
-  "/:id/especialidades",
-  authToken,
-  // authPermissions("READ_COLABORADOR"),
-  readEspecialidadesByColaboradorController.handle,
-);
 
 
 export { colaboradorRoutes };

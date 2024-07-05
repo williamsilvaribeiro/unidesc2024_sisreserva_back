@@ -19,27 +19,27 @@ const deleteUserController = new DeleteUserController();
 
 userRoutes.post("/",
 authToken,
-authPermissions("CREATE_USER"),
+// authPermissions("CREATE_USER"),
  createUserController.handle);
 
 userRoutes.get("/",
 authToken,
-authPermissions("READ_USER"),
+// authPermissions("READ_USER"),
  readUserController.handle);
 
 userRoutes.get("/:id",
 authToken,
-authPermissions("READ_USER"),
+// authPermissions("READ_USER"),
  readUserByIdController.handle);
 
 userRoutes.put("/:id",
 authToken,
-authPermissions("UPDATE_USER"),
+// authPermissions("UPDATE_USER"),
  updateUserController.handle);
 
 userRoutes.delete("/:id",
 authToken,
-authPermissions("DELETE_USER"),
+// authPermissions("DELETE_USER"),
  deleteUserController.handle);
 
 export { userRoutes };
