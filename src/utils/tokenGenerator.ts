@@ -4,7 +4,6 @@ import auth from "../auth/config/auth";
 
 function generateAccessToken(id: string) {
   const secret = auth.secret_access
-  console.log("secret => ", auth)
   const acessToken = jwt.sign({ colaboradorId: id, id, }, secret, {
     expiresIn: auth.expiration_access,
   });

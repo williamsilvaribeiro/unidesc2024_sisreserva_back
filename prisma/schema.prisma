@@ -59,6 +59,17 @@ model Colaborador {
   @@map("colaborador")
 }
 
+model Calendario {
+  id String @id @default(uuid())
+  dataAgendamento Int @map("data_de_agendamento")
+  
+  ativo Boolean @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("calendario")
+}
+
 model Local {
   id   String @id @default(uuid())
   tipo String @map("tipo")
