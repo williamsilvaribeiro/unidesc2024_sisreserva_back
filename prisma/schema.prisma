@@ -62,6 +62,8 @@ model Colaborador {
 model Calendario {
   id String @id @default(uuid())
   dataAgendamento Int @map("data_de_agendamento")
+
+  local Local[]
   
   ativo Boolean @default(true)
   createdAt DateTime @default(now()) @map("created_at")
@@ -76,6 +78,23 @@ model Local {
   numero Int @map("numero") 
   bloco String @map("bloco")
 
+  calendario_id String
+
+  estoque Estoque?
+  calendario Calendario @relation(fields: [calendario_id], references: [id])
   
   @@map("local")
+}
+
+
+model Estoque {
+  id String @id @default(uuid())
+  nome String @map("nome")
+  disponivel Boolean @map("disponivel")
+  localId String @map("local_id") @unique
+
+  local Local @relation(fields: [localId], references: [id])
+
+
+  @@map("Estoque")
 }
